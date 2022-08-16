@@ -15,6 +15,7 @@ class TodoController extends Controller
      */
     public function index()
     {
+        // @supress-intelephense
         return view('dashboard', ['todos' => auth()->user()->todos()->get()]);
     }
 
@@ -47,7 +48,11 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-        //
+        if (auth()->user()->id != $todo->user_id) {
+            return abort(403);
+        }
+
+        return view('todo.show', ['todo' => $todo]);
     }
 
     /**

@@ -11,18 +11,14 @@
         <div class="p-6 bg-white border-b border-gray-200">
           <h2 class="text-lg font-bold">To Do List</h2>
           @foreach ($todos as $todo)
-            <div class="flex my-1 {{ $loop->last ? '' : 'border-b' }} todos-center">
-              <form action="{{ route('todo.update', ['id' => $todo->id]) }}" method="post" class="flex-1 flex">
-                @csrf
-                @method('PUT')
-                <label for="done-{{ $todo->id }}" class="inline-flex todos-center flex-1 py-3" x-data="{}">
-                  <input type="checkbox" id="done-{{ $todo->id }}"
-                    class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    name="done-{{ $todo->id }}" {{ $todo->checked ? 'checked' : '' }}
-                    onchange="event.preventDefault();this.closest('form').submit();">
+            <div class="flex my-1 {{ $loop->last ? '' : 'border-b' }} items-center">
+              {{-- <form action="{{ route('todo.update', ['todo' => $todo->id]) }}" method="post" class="flex-1 flex"> --}}
+                {{-- @csrf
+                @method('PUT') --}}
+                <a href="{{route('todo.show', ['todo' => $todo->id])}}" class="inline-flex items-center flex-1 py-3">
                   <span class="ml-2 text-gray-600">{{ $todo->title }}</span>
-                </label>
-              </form>
+                </a>
+              {{-- </form> --}}
             </div>
           @endforeach
         </div>
