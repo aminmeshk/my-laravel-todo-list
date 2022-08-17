@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MarkTodoAsDoneRequest;
 use App\Http\Requests\StoreTodoRequest;
 use App\Http\Requests\UpdateTodoRequest;
 use App\Models\Todo;
@@ -85,6 +86,22 @@ class TodoController extends Controller
         
         return redirect()->route('todo.show', ['todo' => $todo->id])->with('message', 'To-Do item updated successfully!');
     }
+    
+    /**
+     * Mark
+     *
+     * @param  \App\Http\Requests\UpdateTodoRequest  $request
+     * @param  \App\Models\Todo  $todo
+     * @return \Illuminate\Http\Response
+     */
+    public function done(MarkTodoAsDoneRequest $request, Todo $todo)
+    {
+        $formFields = $request->validated();
+
+        $todo->update($formFields);
+        
+        return redirect()->route('todo.show', ['todo' => $todo->id])->with('message', 'To-Do item updated successfully!');
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -94,6 +111,8 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo)
     {
-        //
+        $todo->delete();
+
+        return redirect()->route('dashboard')->with('message', 'To-Do item deleted successfully');
     }
 }
