@@ -11,7 +11,7 @@
         <div class="p-6 bg-white border-b border-gray-200">
           <h2 class="text-lg font-bold">To Do List</h2>
           @foreach ($todos as $todo)
-            <div class="flex my-1 {{ $loop->last ? '' : 'border-b' }} items-center">
+            <div class="flex border-b last:border-b-0 items-center rounded hover:bg-gray-100 transition ease-in-out duration-300">
               {{-- <form action="{{ route('todo.update', ['todo' => $todo->id]) }}" method="post" class="flex-1 flex"> --}}
                 {{-- @csrf
                 @method('PUT') --}}
