@@ -23,4 +23,5 @@ Route::get('/dashboard', [TodoController::class, 'index'])->middleware(['auth'])
 require __DIR__ . '/auth.php';
 
 Route::get('/todos/{todo}', [TodoController::class, 'show'])->name('todo.show');
+Route::get('/todos/{todo}/edit', [TodoController::class, 'edit'])->name('todo.edit');
 Route::put('/todos/{todo}', [TodoController::class, 'update'])->name('todo.update');

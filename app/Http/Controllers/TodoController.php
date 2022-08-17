@@ -63,7 +63,11 @@ class TodoController extends Controller
      */
     public function edit(Todo $todo)
     {
-        //
+        if (auth()->user()->id != $todo->user_id) {
+            return abort(403);
+        }
+
+        return view('todo.edit', ['todo' => $todo]);
     }
 
     /**
@@ -75,7 +79,11 @@ class TodoController extends Controller
      */
     public function update(UpdateTodoRequest $request, Todo $todo)
     {
-        //
+        $formFields = $request->validated();
+
+        $todo->update($formFields);
+        
+        return redirect()->route('todo.show', ['todo' => $todo->id])->with('message', 'To-Do item updated successfully!');
     }
 
     /**
