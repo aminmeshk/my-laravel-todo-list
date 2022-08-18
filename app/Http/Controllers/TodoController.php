@@ -6,6 +6,7 @@ use App\Http\Requests\MarkTodoAsDoneRequest;
 use App\Http\Requests\StoreTodoRequest;
 use App\Http\Requests\UpdateTodoRequest;
 use App\Models\Todo;
+use Carbon\Carbon;
 
 class TodoController extends Controller
 {
@@ -88,7 +89,7 @@ class TodoController extends Controller
     }
     
     /**
-     * Mark
+     * Mark to-do item as Done
      *
      * @param  \App\Http\Requests\UpdateTodoRequest  $request
      * @param  \App\Models\Todo  $todo
@@ -97,6 +98,8 @@ class TodoController extends Controller
     public function done(MarkTodoAsDoneRequest $request, Todo $todo)
     {
         $formFields = $request->validated();
+
+        $formFields['done_at'] = $formFields['done'] == "1" ? Carbon::now() : null;
 
         $todo->update($formFields);
         
