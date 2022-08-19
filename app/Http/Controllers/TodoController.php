@@ -84,10 +84,14 @@ class TodoController extends Controller
         $formFields = $request->validated();
 
         $todo->update($formFields);
-        
-        return redirect()->route('todo.show', ['todo' => $todo->id])->with('message', 'To-Do item updated successfully!');
+
+        return redirect()->route('todo.show', ['todo' => $todo->id])->with('result', [
+            'message' => 'To-Do item updated successfully!',
+            'type' => 'success',
+            'slug' => 'todo-updated'
+        ]);
     }
-    
+
     /**
      * Mark to-do item as Done
      *
@@ -102,8 +106,12 @@ class TodoController extends Controller
         $formFields['done_at'] = $formFields['done'] == "1" ? Carbon::now() : null;
 
         $todo->update($formFields);
-        
-        return redirect()->route('todo.show', ['todo' => $todo->id])->with('message', 'To-Do item updated successfully!');
+
+        return redirect()->route('todo.show', ['todo' => $todo->id])->with('result', [
+            'message' => 'Yay! Your To-Do item has been mark as done successfully!',
+            'type' => 'success',
+            'slug' => 'todo-done'
+        ]);
     }
 
     /**
@@ -116,6 +124,10 @@ class TodoController extends Controller
     {
         $todo->delete();
 
-        return redirect()->route('dashboard')->with('message', 'To-Do item deleted successfully');
+        return redirect()->route('dashboard')->with('result', [
+            'message' => 'To-Do item deleted successfully!',
+            'type' => 'success',
+            'slug' => 'todo-deleted'
+        ]);
     }
 }

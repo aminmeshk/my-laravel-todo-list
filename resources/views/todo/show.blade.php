@@ -11,7 +11,7 @@
         <form action="{{ route('todo.done', ['todo' => $todo->id]) }}" method="POST">
           @csrf
           @method('PUT')
-          <x-button class="space-x-1" id="done" onmousedown="party.confetti(this)">
+          <x-button class="space-x-1" id="done">
             <span class="material-symbols-outlined text-lg">
               done
             </span>
@@ -50,8 +50,30 @@
             <h2 class="text-lg font-bold flex-1">{{ $todo->title }}</h2>
 
           </div>
-          <div class="flex my-1 items-center">
+          <div class="flex flex-col my-1 space-y-2">
             <p>{{ $todo->description }}</p>
+            @if ($todo->done)
+              <div class="flex items-center space-x-1">
+                <span class="material-symbols-outlined text-base text-green-700">
+                  done
+                </span>
+                <p class="text-sm text-green-700">Done
+                  {{ (new Carbon\Carbon($todo->done_at))->longRelativeToNowDiffForHumans() }}</p>
+              </div>
+            @endif
+            <div class="flex items-center space-x-1">
+              <span class="material-symbols-outlined text-base">
+                edit
+              </span>
+              <p class="text-sm">Last modified {{ $todo->updated_at->longRelativeToNowDiffForHumans() }}</p>
+            </div>
+            <div class="flex items-center space-x-1">
+              <span class="material-symbols-outlined text-base">
+                schedule
+              </span>
+              <p class="text-sm">Created {{ $todo->created_at->longRelativeToNowDiffForHumans() }}</p>
+            </div>
+
           </div>
         </div>
       </div>

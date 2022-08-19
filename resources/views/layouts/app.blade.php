@@ -40,9 +40,9 @@
 
     <!-- Page Content -->
     <main>
-      @if (session('message'))
-        <x-flash-message>
-          {{ session('message') }}
+      @if (session('result'))
+        <x-flash-message confetti="{{isset(session('result')['slug']) && session('result')['slug'] == 'todo-done' ? true : false}}">
+          {{ session('result')['message'] }}
         </x-flash-message>
       @endif
       {{ $slot }}
@@ -50,7 +50,4 @@
   </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
-<script>
-  import party from "party-js";
-</script>
 </html>
