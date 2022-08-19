@@ -3,6 +3,7 @@
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
       Edit To-Do Item
     </h2>
+    {{ Breadcrumbs::render('todo.edit', $todo) }}
   </x-slot>
 
   <div class="py-12">

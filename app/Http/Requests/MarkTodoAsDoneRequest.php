@@ -26,9 +26,6 @@ class MarkTodoAsDoneRequest extends FormRequest
      */
     public function rules()
     {
-        // $d = request('done');
-        // var_dump($d);
-        // dd();
         return [
             'done' => ['required', 'boolean']
         ];

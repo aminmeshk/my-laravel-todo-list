@@ -3,6 +3,7 @@
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
       To-Do Item
     </h2>
+    {{ Breadcrumbs::render('todo.show', $todo) }}
   </x-slot>
 
   <div class="py-12">
@@ -13,13 +14,13 @@
           @method('PUT')
           <x-button class="space-x-1 w-full justify-center" id="done">
             <span class="material-symbols-outlined text-lg">
-              done
+              {{ $todo->done ? 'block' : 'done' }}
             </span>
             <span>
-              Mark As Done
+              Mark As {{ $todo->done ? 'To-Do' : 'Done' }}
             </span>
           </x-button>
-          <input type="hidden" name="done" value="1" />
+          <input type="hidden" name="done" value="{{$todo->done ? '0' : '1'}}" />
         </form>
         <a href="{{ route('todo.edit', ['todo' => $todo]) }}"
           class="inline-flex justify-center items-center space-x-1 px-4 py-2 bg-transparent hover:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-gray-800 uppercase tracking-widest active:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
@@ -45,6 +46,7 @@
         </form>
       </div>
       <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg relative">
+        @if($todo->done)
         <div class="bg-green-700 absolute top-0 right-0 -mr-2 -mt-2 rounded-md py-2 px-4 flex flex-row items-center">
           <span class="material-symbols-outlined text-lg mt-1 mr-1 text-white">
             done
@@ -53,6 +55,7 @@
             Done
           </span>
         </div>
+        @endif
         <div class="p-6 bg-white border-b border-gray-200">
           <div class="flex space-x-2">
             <h2 class="text-lg font-bold flex-1">{{ $todo->title }}</h2>

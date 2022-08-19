@@ -41,7 +41,7 @@
     <!-- Page Content -->
     <main>
       @if (session('result'))
-        <x-flash-message confetti="{{isset(session('result')['slug']) && session('result')['slug'] == 'todo-done' ? true : false}}">
+        <x-flash-message confetti="{{isset(session('result')['slug']) && session('result')['slug'] == 'todo-done' ? true : false}}" type="{{ session('result')['type'] }}">
           {{ session('result')['message'] }}
         </x-flash-message>
       @endif

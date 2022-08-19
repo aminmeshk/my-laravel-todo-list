@@ -113,15 +113,32 @@ class TodoController extends Controller
     {
         $formFields = $request->validated();
 
+        $oldTodo = Todo::find($todo->id);
+        if ($oldTodo->done == $formFields['done']) {
+            return redirect()->back()->with(['result' => [
+                'type' => 'error',
+                'message' => 'This todo item was already ' . ($oldTodo->done ? 'done' : 'not done'),
+                'slug' => 'todo.already-done'
+            ]]);
+        }
+
         $formFields['done_at'] = $formFields['done'] == "1" ? Carbon::now() : null;
 
         $todo->update($formFields);
 
-        return redirect()->route('todo.show', ['todo' => $todo->id])->with('result', [
-            'message' => 'Yay! Your To-Do item has been mark as done successfully!',
-            'type' => 'success',
-            'slug' => 'todo-done'
-        ]);
+        if ($formFields['done']) {
+            return redirect()->route('todo.show', ['todo' => $todo->id])->with('result', [
+                'message' => 'Yay! Your To-Do item has been marked as done successfully!',
+                'type' => 'success',
+                'slug' => 'todo-done'
+            ]);
+        } else {
+            return redirect()->route('todo.show', ['todo' => $todo->id])->with('result', [
+                'message' => 'To-Do item has been marked as not done',
+                'type' => 'success',
+                'slug' => 'todo-undone'
+            ]);
+        }
     }
 
     /**
