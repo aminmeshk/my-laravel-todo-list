@@ -7,7 +7,7 @@
 
   <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col space-y-2">
-      <div class="flex flex-col sm:flex-row self-stretch justify-end space-x-2 mb-2">
+      <div class="flex flex-col sm:flex-row px-2 sm:px-0 self-stretch justify-end space-x-2 mb-2">
         <form action="{{ route('todo.done', ['todo' => $todo->id]) }}" method="POST">
           @csrf
           @method('PUT')

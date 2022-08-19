@@ -28,7 +28,7 @@ class TodoController extends Controller
      */
     public function create()
     {
-        //
+        return view('todo.create');
     }
 
     /**
@@ -39,7 +39,17 @@ class TodoController extends Controller
      */
     public function store(StoreTodoRequest $request)
     {
-        //
+        $formFields = $request->validated();
+
+        $formFields['user_id'] = auth()->id();
+
+        Todo::create($formFields);
+
+        return redirect()->route('dashboard')->with('result', [
+            'message' => 'To-Do item added successfully',
+            'type' => 'success',
+            'slug' => 'todo-added'
+        ]);
     }
 
     /**

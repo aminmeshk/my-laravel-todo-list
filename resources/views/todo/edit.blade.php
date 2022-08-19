@@ -10,7 +10,7 @@
       <form action="{{ route('todo.update', ['todo' => $todo->id]) }}" method="POST">
         @csrf
         @method('PUT')
-        <div class="flex flex-col sm:flex-row self-stretch justify-end space-x-2 mb-2">
+        <div class="flex flex-col sm:flex-row px-2 sm:px-0 self-stretch justify-end space-x-2 mb-2">
           <x-button class="space-x-1 justify-center">
             <span class="material-symbols-outlined text-xl">
               done
@@ -32,7 +32,7 @@
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
           <div class="p-6 bg-white border-b border-gray-200">
             <x-input type="text" name="title" id="title" placeholder="Title"
-              value="{{ old('title') ?? $todo->title }}"
+              value="{{ $todo->title }}"
               class="flex-1 mt-1 block w-full text-base font-bold sm:text-lg" />
             @error('title')
               <p class="text-red-700 text-xs m-1">{{ $message }}</p>

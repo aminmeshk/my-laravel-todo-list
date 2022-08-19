@@ -27,8 +27,8 @@ class UpdateTodoRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required'],
-            'description' => ['nullable']
+            'title' => ['required', 'string'],
+            'description' => ['nullable', 'string']
         ];
     }
 }
