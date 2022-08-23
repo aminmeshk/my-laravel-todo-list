@@ -1,6 +1,9 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 
+const domain = "my-laravel-todo-list.test";
+const homeDir = require('os').homedir();
+
 export default defineConfig({
     plugins: [
         laravel({
@@ -11,4 +14,11 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        https: {
+            key: homeDir + '/.config/valet/Certificates/' + domain + '.key',
+            cert: homeDir + '/.config/valet/Certificates/' + domain + '.crt',
+        },
+        host: domain,
+    }
 });
