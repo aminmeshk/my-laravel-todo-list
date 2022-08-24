@@ -20,7 +20,7 @@
               Save
             </span>
           </x-button>
-          <a href="{{ back()->getTargetUrl() }}"
+          <a href="{{ route('todo.show', ['todo' => $todo]) }}"
             class="justify-center inline-flex items-center space-x-1 px-4 py-2 bg-transparent hover:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-gray-800 uppercase tracking-widest active:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
             <span class="material-symbols-outlined text-xl">
               close

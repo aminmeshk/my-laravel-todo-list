@@ -18,18 +18,24 @@
           </span>
         </a>
       </div>
-      <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+      <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
         <div class="p-6 bg-white border-b border-gray-200">
-          <h2 class="text-lg font-bold">To Do List</h2>
-          @foreach ($todos as $todo)
-            <div class="flex border-b last:border-b-0 items-center rounded hover:bg-gray-100 transition ease-in-out duration-300">
-              {{-- <form action="{{ route('todo.update', ['todo' => $todo->id]) }}" method="post" class="flex-1 flex"> --}}
-                {{-- @csrf
-                @method('PUT') --}}
-                <a href="{{route('todo.show', ['todo' => $todo->id])}}" class="inline-flex items-center flex-1 py-3">
-                  <span class="ml-2 text-gray-600">{{ $todo->title }}</span>
-                </a>
-              {{-- </form> --}}
+          <h2 class="text-lg font-bold">To-Do</h2>
+          @foreach ($todos->where('done', false) as $todo)
+            <div
+              class="flex border-b items-center rounded hover:bg-gray-100 transition ease-in-out duration-300 {{ $loop->last ? 'border-b-0' : '' }}">
+              <a href="{{ route('todo.show', ['todo' => $todo->id]) }}" class="inline-flex items-center flex-1 py-3">
+                <span class="ml-2 text-gray-600">{{ $todo->title }}</span>
+              </a>
+            </div>
+          @endforeach
+          <h2 class="text-lg font-bold my-2">Done</h2>
+          @foreach ($todos->where('done', true) as $todo)
+            <div
+              class="flex border-b last:border-b-0 items-center rounded hover:bg-gray-100 transition ease-in-out duration-300 line-through">
+              <a href="{{ route('todo.show', ['todo' => $todo->id]) }}" class="inline-flex items-center flex-1 py-3">
+                <span class="ml-2 text-gray-600">{{ $todo->title }}</span>
+              </a>
             </div>
           @endforeach
         </div>
