@@ -47,6 +47,15 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "create-caches": [
+            "composer install --optimize-autoloader --no-dev && php artisan route:cache && php artisan view:cache && npm run build"
+        ],
+        "env-production": [
+            "@php -r \"copy('.env.production', '.env');\" && php -r \"copy('public/.index.php.production', 'public/index.php');\""
+        ],
+        "env-local": [
+            "@php -r \"copy('.env.local', '.env');\" && php -r \"copy('public/.index.php.local', 'public/index.php');\""
         ]
     },
     "extra": {
