@@ -17,8 +17,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        // @supress-intelephense
-        return view('dashboard', ['todos' => auth()->user()->todos()->get()]);
+        return view('home', ['todos' => auth()->user()->todos()->get()]);
     }
 
     /**
@@ -45,7 +44,7 @@ class TodoController extends Controller
 
         Todo::create($formFields);
 
-        return redirect()->route('dashboard')->with('result', [
+        return redirect()->route('home')->with('result', [
             'message' => 'To-Do item added successfully',
             'type' => 'success',
             'slug' => 'todo-added'
@@ -151,7 +150,7 @@ class TodoController extends Controller
     {
         $todo->delete();
 
-        return redirect()->route('dashboard')->with('result', [
+        return redirect()->route('home')->with('result', [
             'message' => 'To-Do item deleted successfully!',
             'type' => 'success',
             'slug' => 'todo-deleted'

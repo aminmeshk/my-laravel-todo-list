@@ -14,11 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [TodoController::class, 'index'])->middleware(['auth'])->name('home');
 
-Route::get('/dashboard', [TodoController::class, 'index'])->middleware(['auth'])->name('dashboard');
+// Route::get('/dashboard', [TodoController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/todo.php';
