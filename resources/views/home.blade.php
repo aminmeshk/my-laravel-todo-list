@@ -16,23 +16,13 @@
             @unless($todos->where('done', false)->isEmpty())
               <h2 class="text-lg font-bold">To-Do</h2>
               @foreach ($todos->where('done', false) as $todo)
-                <div
-                  class="flex border-b items-center rounded hover:bg-gray-100 transition ease-in-out duration-300 {{ $loop->last ? 'border-b-0' : '' }}">
-                  <a href="{{ route('todo.show', ['todo' => $todo->id]) }}" class="inline-flex items-center flex-1 py-3">
-                    <span class="ml-2 text-gray-600">{{ $todo->title }}</span>
-                  </a>
-                </div>
+                <x-todo-item-row :todo="$todo" :class="$loop->last ? 'border-b-0' : ''" />
               @endforeach
             @endunless
             @unless($todos->where('done', true)->isEmpty())
               <h2 class="text-lg font-bold my-2">Done</h2>
               @foreach ($todos->where('done', true) as $todo)
-                <div
-                  class="flex border-b last:border-b-0 items-center rounded hover:bg-gray-100 transition ease-in-out duration-300 line-through">
-                  <a href="{{ route('todo.show', ['todo' => $todo->id]) }}" class="inline-flex items-center flex-1 py-3">
-                    <span class="ml-2 text-gray-600">{{ $todo->title }}</span>
-                  </a>
-                </div>
+                <x-todo-item-row :todo="$todo" :class="$loop->last ? 'border-b-0' : ''" />
               @endforeach
             @endunless
           @else

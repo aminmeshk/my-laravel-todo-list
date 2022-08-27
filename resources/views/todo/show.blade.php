@@ -24,14 +24,7 @@
       </div>
       <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg relative">
         @if ($todo->done)
-          <div class="bg-green-700 absolute top-0 right-0 -mr-2 -mt-2 rounded-md py-2 px-4 flex flex-row items-center">
-            <span class="material-symbols-outlined text-lg mt-1 mr-1 text-white">
-              done
-            </span>
-            <span class="mt-1 mr-1 text-white">
-              Done
-            </span>
-          </div>
+          <x-done-badge />
         @endif
         <div class="p-6 bg-white border-b border-gray-200">
           <div class="flex space-x-2">
@@ -39,29 +32,14 @@
 
           </div>
           <div class="flex flex-col my-1 space-y-2">
-            <p>{{ $todo->description }}</p>
-            @if ($todo->done)
-              <div class="flex items-center space-x-1">
-                <span class="material-symbols-outlined text-base text-green-700">
-                  done
-                </span>
-                <p class="text-sm text-green-700">Done
-                  {{ (new Carbon\Carbon($todo->done_at))->longRelativeToNowDiffForHumans() }}</p>
-              </div>
-            @endif
-            <div class="flex items-center space-x-1">
-              <span class="material-symbols-outlined text-base">
-                edit
-              </span>
-              <p class="text-sm">Last modified {{ $todo->updated_at->longRelativeToNowDiffForHumans() }}</p>
-            </div>
-            <div class="flex items-center space-x-1">
-              <span class="material-symbols-outlined text-base">
-                schedule
-              </span>
-              <p class="text-sm">Created {{ $todo->created_at->longRelativeToNowDiffForHumans() }}</p>
-            </div>
 
+            <p>{{ $todo->description }}</p>
+
+            @if ($todo->done)
+              <x-todo-item-info class="text-green-700" icon="done" :title="'Done ' . (new Carbon\Carbon($todo->done_at))->longRelativeToNowDiffForHumans()" />
+            @endif
+            <x-todo-item-info icon="edit" :title="'Last modified ' . $todo->updated_at->longRelativeToNowDiffForHumans()" />
+            <x-todo-item-info icon="schedule" :title="'Created ' . $todo->created_at->longRelativeToNowDiffForHumans()" />
           </div>
         </div>
       </div>
