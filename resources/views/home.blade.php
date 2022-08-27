@@ -22,7 +22,7 @@
             @unless($todos->where('done', true)->isEmpty())
               <h2 class="text-lg font-bold my-2">Done</h2>
               @foreach ($todos->where('done', true) as $todo)
-                <x-todo-item-row :todo="$todo" :class="$loop->last ? 'border-b-0' : ''" />
+                <x-todo-item-row :todo="$todo" :class="'line-through ' . ($loop->last ? 'border-b-0' : '')" />
               @endforeach
             @endunless
           @else
