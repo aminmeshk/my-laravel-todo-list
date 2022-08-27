@@ -12,49 +12,26 @@
         <form action="{{ route('todo.done', ['todo' => $todo->id]) }}" method="POST">
           @csrf
           @method('PUT')
-          <x-button class="space-x-1 w-full justify-center" id="done">
-            <span class="material-symbols-outlined text-lg">
-              {{ $todo->done ? 'block' : 'done' }}
-            </span>
-            <span>
-              Mark As {{ $todo->done ? 'To-Do' : 'Done' }}
-            </span>
-          </x-button>
-          <input type="hidden" name="done" value="{{$todo->done ? '0' : '1'}}" />
+          <x-button class="w-full" :icon="$todo->done ? 'block' : 'done'" :title="'Mark As ' . ($todo->done ? 'To-Do' : 'Done')" />
+          <input type="hidden" name="done" value="{{ $todo->done ? '0' : '1' }}" />
         </form>
-        <a href="{{ route('todo.edit', ['todo' => $todo]) }}"
-          class="inline-flex justify-center items-center space-x-1 px-4 py-2 bg-transparent hover:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-gray-800 uppercase tracking-widest active:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
-          <span class="material-symbols-outlined text-lg">
-            edit
-          </span>
-          <span>
-            Edit
-          </span>
-        </a>
+        <x-button-link :route="route('todo.edit', ['todo' => $todo])" variant="transparent" icon_name="edit" title="edit" />
         <form action="{{ route('todo.destroy', ['todo' => $todo]) }}" method="POST">
           @csrf
           @method('DELETE')
-          <x-button href="{{ route('todo.destroy', ['todo' => $todo]) }}"
-            class="w-full justify-center space-x-1 bg-transparent hover:bg-red-100 border-0 text-red-600 active:bg-red-100 focus:bg-red-100 ring-red-200">
-            <span class="material-symbols-outlined text-lg">
-              delete
-            </span>
-            <span>
-              Delete
-            </span>
-          </x-button>
+          <x-button class="w-full" icon="delete" title="Delete" variant="delete" />
         </form>
       </div>
       <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg relative">
-        @if($todo->done)
-        <div class="bg-green-700 absolute top-0 right-0 -mr-2 -mt-2 rounded-md py-2 px-4 flex flex-row items-center">
-          <span class="material-symbols-outlined text-lg mt-1 mr-1 text-white">
-            done
-          </span>
-          <span class="mt-1 mr-1 text-white">
-            Done
-          </span>
-        </div>
+        @if ($todo->done)
+          <div class="bg-green-700 absolute top-0 right-0 -mr-2 -mt-2 rounded-md py-2 px-4 flex flex-row items-center">
+            <span class="material-symbols-outlined text-lg mt-1 mr-1 text-white">
+              done
+            </span>
+            <span class="mt-1 mr-1 text-white">
+              Done
+            </span>
+          </div>
         @endif
         <div class="p-6 bg-white border-b border-gray-200">
           <div class="flex space-x-2">
