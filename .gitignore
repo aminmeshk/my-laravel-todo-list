@@ -17,5 +17,3 @@ yarn-error.log
 /.idea
 /.vscode
 .DS_STORE
-.vite.config.js.local
-.vite.config.js.production
