@@ -13,6 +13,11 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
+  <!-- Icons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   <style>
     .material-symbols-outlined {
       font-variation-settings:
@@ -41,7 +46,9 @@
     <!-- Page Content -->
     <main>
       @if (session('result'))
-        <x-flash-message confetti="{{isset(session('result')['slug']) && session('result')['slug'] == 'todo-done' ? true : false}}" type="{{ session('result')['type'] }}">
+        <x-flash-message
+          confetti="{{ isset(session('result')['slug']) && session('result')['slug'] == 'todo-done' ? true : false }}"
+          type="{{ session('result')['type'] }}">
           {{ session('result')['message'] }}
         </x-flash-message>
       @endif
@@ -50,4 +57,5 @@
   </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/party-js@latest/bundle/party.min.js"></script>
+
 </html>

@@ -49,13 +49,16 @@
             "@php artisan key:generate --ansi"
         ],
         "create-caches": [
-            "composer install --optimize-autoloader --no-dev && php artisan route:cache && php artisan view:cache && npm run build"
+            "composer install --optimize-autoloader --no-dev && php artisan route:cache && npm run build && php artisan view:cache"
         ],
         "env-production": [
-            "@php -r \"copy('.env.production', '.env');\" && php -r \"copy('public/.index.php.production', 'public/index.php');\""
+            "@php -r \"copy('.env.production', '.env');\" && php -r \"copy('public/.index.php.production', 'public/index.php');\" && php -r \"copy('.vite.config.js.production', 'vite.config.js');\" && rm public/hot"
         ],
         "env-local": [
-            "@php -r \"copy('.env.local', '.env');\" && php -r \"copy('public/.index.php.local', 'public/index.php');\""
+            "@php -r \"copy('.env.local', '.env');\" && php -r \"copy('public/.index.php.local', 'public/index.php');\" && php -r \"copy('.vite.config.js.local', 'vite.config.js');\""
+        ],
+        "create-release": [
+            "mkdir -p ../prod && rm -rf ../prod/laravel-todo-list && rm -rf ../prod/laravel-todo-list.* && mkdir -p ../prod/laravel-todo-list && cp -a . ../prod/laravel-todo-list && cd ../prod/laravel-todo-list && php -r \"copy('.env.production', '.env');\" && php -r \"copy('public/.index.php.production', 'public/index.php');\" && php -r \"copy('.vite.config.js.production', 'vite.config.js');\" && rm public/hot && composer install --optimize-autoloader --no-dev && php artisan route:cache && npm run build && php artisan view:cache && rm -rf node_modules && rm -rf .git && rm -rf storage/logs/laravel.log && rm -rf storage/framework/sessions/* && rm -rf storage/framework/cache/* && rm -rf .env.* && rm -rf .vite.* && rm -rf public/.index.php.*  && rm -rf composer.lock && rm -rf package-lock.json && cd .. && tar -zcf laravel-todo-list.tar.gz laravel-todo-list && cd ../my-laravel-todo-list && open ../prod"
         ]
     },
     "extra": {
